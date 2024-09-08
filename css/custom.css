@@ -1,5 +1,53 @@
-h1, h2 {
+body {
+    background-color: #7EACB5;
+}
+
+h1 {
     text-align: center;
+    padding-bottom: 4rem;
+    font-family: "Playwrite CU", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.fullContainer {
+    background-color: #C96868;
+    padding: 5rem;
+    border-radius: 25px;
+    box-shadow: 0 0 15px;
+}
+
+#task{
+    resize: vertical; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+    width: 100%;
+}
+
+textarea:hover {
+    border-color: #C96868;
+    box-shadow: 0 0 10px rgba(0, 138, 46, 0.5);
+    outline: none;
+}
+
+textarea::placeholder {
+    color: #aaa;
+    font-style: italic;
+  }
+
+.columns {
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.columns h4 {
+    text-align: center;
+}
+
+.newTaskColumn {
+    background-color: #FFF4EA;
+    box-shadow: 0 0 10px #422727;
 }
 
 .emptyTaskList {
@@ -11,15 +59,18 @@ h1, h2 {
     border-radius: 5px;
 }
 
-#contenido {
+#content {
     margin-top: 40px;
+    margin-bottom: 40px;
 }
-.borrar-tweet,
-.borrar-tweet:hover {
+.remove-task,
+.remove-task:hover {
     float: right;
     cursor: pointer;
     color: red;
     font-weight: bold;
+    padding-right: 25px;
+    font-size: 1.2em;
 }
 
 .error {
@@ -31,4 +82,12 @@ h1, h2 {
     max-width: 400px;
     margin: 0 auto;
     color: white;
+    border-radius: 15px;
+}
+
+.newLi {
+    border-radius: 5px;
+    background-color: #FFF4EA;
+    padding: 0 25px;
+    font-size: 1.2em;
 }

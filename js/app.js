@@ -1,127 +1,131 @@
 //VARIABLES
-const formulario = document.querySelector('#formulario');
-const listaTweets = document.querySelector('#lista-tweets');
-const contenido = document.querySelector('#contenido');
-let tweets = [];
+const form = document.querySelector('#form');
+const tasklist = document.querySelector('#task-list');
+const body = document.querySelector('#body');
+
+let tasks = [];
+let emptyListMessage = null;
 
 
-//EVENTOS
+//EVENTS
 eventListeners()
 
 function eventListeners() {
-    //Cuando el usuario agrega un nuevo tweet
-    formulario.addEventListener('submit', agregarTweet)
+    //User add some new task
+    form.addEventListener('submit', addTask)
 
-    //Cuando el documento está listo
+    //Document ready
     document.addEventListener('DOMContentLoaded', () => {
-        tweets = JSON.parse(localStorage.getItem('tweets')) || [];
+        tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-        console.log(tweets);
-
-        crearHTML()
+        createHTML()
     })
 }
 
 
-//FUNCIONES
-function agregarTweet(e) {
+//FUNCTONS
+function addTask(e) {
     e.preventDefault();
     
-    const tweet = document.querySelector('#tweet').value;
+    const task = document.querySelector('#task').value;
         
-    if(tweet === ''){
-        mostrarError('No hay ningún tweet enviado');
+    if(task === ''){
+        showError('No tasks have been added');
         return;
     }         
     
-    //Objeto para el tweet
-    const tweetObj = {
-        id : Date.now(), //Milisegundos desde 1/1/1970, lo usaré de ID único
-        tweet : tweet //Podría dejarlo somo tweet, ya que key y value son iguales
+    //Object for the task
+    const taskObj = {
+        id : Date.now(), //Milliseconds from 1/1/1970, I will use it as a unique ID
+        task : task 
     }
 
-    //Agregando el tweet al array tweets
-    tweets = [...tweets, tweetObj];
+    //Adding the new task to the tasks array
+    tasks = [...tasks, taskObj];
     
-    //Crea HTML en "Mis Tweets"
-    crearHTML();
+    //Creating HTML at "My tasks in progress"
+    createHTML();
 
-    //Reiniciar el formulario
-    formulario.reset();
+    //Restarting the form
+    form.reset();
 }
 
-function mostrarError(error) {
-    const mensajeError = document.createElement('P');
-    mensajeError.textContent = error;
-    mensajeError.classList.add('error')
+function showError(error) {
+    const errorMessage = document.createElement('P');
+    errorMessage.textContent = error;
+    errorMessage.classList.add('error')
 
-    //Insertando el error en el contenidos
-    contenido.appendChild(mensajeError)
+    //Adding the error message at the end of the body
+    body.appendChild(errorMessage)
 
     setTimeout(() => {
-        contenido.removeChild(contenido.lastChild)
+        body.removeChild(body.lastChild)
     }, 3000);
 }
 
-    //Muestra un listado con los tweets escritos
-function crearHTML() {
+    //Shows a list with the tasks added
+function createHTML() {
 
-    limpiarHTML();
+    clearHTML();
 
-    if (tweets.length > 0){
-        tweets.forEach(tweet => {
+    if (tasks.length > 0){
+        tasks.forEach(task => {
             
-            //Crear un botón para eliminar los tweets
-            const btnEliminar = document.createElement('a');
-            btnEliminar.textContent = 'X'
-            btnEliminar.classList.add('borrar-tweet')
+            //Creating a button the remove the task
+            const btnRemove = document.createElement('A');
+            btnRemove.textContent = 'X'
+            btnRemove.classList.add('remove-task')
             
-            //Crear el HMTL
+            //Create the HMTL
             const li = document.createElement('LI');
-            li.textContent = tweet.tweet;
+            const textFormat = task.task.toLowerCase()
+            li.textContent = textFormat.charAt(0).toUpperCase() + textFormat.slice(1);
+            li.classList.add ('newLi')
 
-            //Insertar btnEliminar en HTML
-            listaTweets.appendChild(btnEliminar)
+            //Insert btnRemove at HTML
+            tasklist.appendChild(btnRemove)
 
-            //Insertar texto en HMTL
-            listaTweets.appendChild(li);
+            //Insert text at HMTL
+            tasklist.appendChild(li);
 
-            //Agregar función al btnEliminar
-            btnEliminar.onclick = () => {
-                borrarTweet(tweet.id);
+            //Adding function to btnRemove
+            btnRemove.onclick = () => {
+                removetask(task.id);
             }
 
         });
     };
 
-    if (tweets.length === 0){
-        const emptyList = document.createElement('DIV');
-        emptyList.textContent = 'Your to do list is currently empty';
-        emptyList.classList.add('emptyTaskList');
-        formulario.appendChild(emptyList);
+    if (emptyListMessage){
+        form.removeChild(emptyListMessage);
+        emptyListMessage = null;
     } else {
-        formulario.removeChild(formulario.lastChild)
+        if (tasks.length === 0) {
+            emptyListMessage = document.createElement('P');
+            emptyListMessage.textContent = 'Your to do list is currently empty';
+            emptyListMessage.classList.add('emptyTaskList');
+            form.appendChild(emptyListMessage);}
     }
 
-    sincronizarStorage();
+    syncStorage();
 }
 
-    //Limpiar HTML
-function limpiarHTML() {
-    while(listaTweets.firstChild){
-        listaTweets.removeChild(listaTweets.firstChild);
+    //Clear HTML
+function clearHTML() {
+    while(tasklist.firstChild){
+        tasklist.removeChild(tasklist.firstChild);
     };
 };
 
-    //Eliminar Tweet con btnEliminar
-function borrarTweet(id) {
-    tweets = tweets.filter( tweet => tweet.id !== id );
-    crearHTML();
+    //Remove task with btnRemove
+function removetask(id) {
+    tasks = tasks.filter( task => task.id !== id );
+    createHTML();
 };
 
-    //Agregar tweets al local storage
-function sincronizarStorage() {
-    localStorage.setItem('tweets', JSON.stringify(tweets));
+    //Adding tasks to local storage
+function syncStorage() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 
 

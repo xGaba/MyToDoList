@@ -8,30 +8,36 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/custom.css">
-</head>
-<body>
 
-    <div id="contenido">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap" rel="stylesheet">
+
+</head>
+<body id="body">
+
+    <div id="content">
         <div class="container">
 
-            <h1>TO DO LISTS</h1>
-            <div class="row">
-                <div class="five columns">
-                    <h4 for="tweet">Add new task:</h4>
-                    <form  id="formulario">
-                            <label for="tweet"></label>
-                            <textarea id="tweet" class="u-full-width"></textarea>
-                            <input type="submit" class="button u-full-width button-primary" value="Agregar">
+            <h1>My to do list 📝</h1>
+            <div class="row fullContainer">
+                <div class="five columns newTaskColumn">
+                    <h4 for="task">Add new task:</h4>
+                    <form  id="form">
+                            <label for="task"></label>
+                            <textarea id="task" class="u-full-width" placeholder="Text here"></textarea>
+                            <input type="submit" class="button u-full-width button-primary" value="Add to the list">
                     </form>
                 </div>
                 <div class="seven columns">
-                    <h4>My tasks in progess</h4>
-                    <div id="lista-tweets"></div>
+                    <h4>My tasks in progess ✔</h4>
+                    <div id="task-list"></div>
                 </div>
             </div>
 
         </div>
-    </div> <!--#contenido-->
+    </div> <!--#content-->
 
     <script src="js/app.js"></script>
 </body>
