@@ -9,29 +9,6 @@ This is a to-do list project developed at the Front-End. It allows users to add,
 - Simple and functional interface.
 - Storaged with LocalStorage.
 
-## Installation
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/xGaba/MyToDoList.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd MyToDoList
-   ```
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-## Usage
-
-1. Start the server:
-   ```bash
-   node app.js
-   ```
-2. Open your browser and go to `http://localhost:3000` to use the application.
-
 ## Tech Stack
 
 - HTML and CSS
